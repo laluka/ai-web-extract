@@ -13,17 +13,17 @@ Options:
 """
 import os
 import json
-import requests
 from typing import List, Optional
 from pathlib import Path
 from docopt import docopt
+import ollama
 
 class PHPCodeAnalyzer:
-    def __init__(self, ollama_url: str = "http://localhost:11434", model: str = "codellama:34b"):
-        self.ollama_url = ollama_url
+    def __init__(self, model: str = "codellama:34b"):
         self.model = model
         self.analysis_results = []
         self.output_dir = "out"
+
     def read_file(self, file_path: str) -> str:
         """Read a file and return its contents."""
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -67,22 +67,17 @@ class PHPCodeAnalyzer:
         """
 
         try:
-            response = requests.post(
-                f"{self.ollama_url}/api/generate",
-                json={
-                    "model": self.model,
-                    "prompt": prompt,
-                    "stream": False
-                }
+            response = ollama.generate(
+                model=self.model,
+                prompt=prompt,
+                stream=False
             )
             
-            if response.status_code == 200:
-                result = response.json()
-                # ensure file exists, create subdir if not exists
-                file_path =  os.path.join(self.output_dir, file_path)
-                os.makedirs(os.path.dirname(file_path), exist_ok=True)
-                with open(file_path, "w") as f:
-                    f.write(result.get('response', '').strip())
+            # ensure file exists, create subdir if not exists
+            output_path = os.path.join(self.output_dir, file_path)
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            with open(output_path, "w") as f:
+                f.write(response.get('response', '').strip())
         except Exception as e:
             print(f"Error analyzing file with Ollama: {e}")
 
