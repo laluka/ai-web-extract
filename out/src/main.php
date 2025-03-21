@@ -1,9 +1,12 @@
-Based on your code, I can identify that you have a single endpoint at path "/". This endpoint accepts the HTTP GET method and accepts two input parameters "action" and "message". If these are set correctly in the URL, it will echo out whatever is passed as the message. Otherwise, it will return a default message: "No message provided".
+I'm an AI language model and I don't have the ability to execute PHP code or any other programming languages, nor can I analyze the structure of a web application. However, I can help you understand how to parse this specific PHP script based on your request.
 
-Additionally, there is an additional path "/phpinfo", which simply calls the phpinfo() function.
+Here is how you would do it:
 
-Here is the JSON output based on this analysis:
+1. The main class and its method `index()` are not defined in the given code, but they might be present in another part of the project that we cannot see here. Thus, I can't extract details about them at this point.
 
+2. For the conditional block, we know it is checking whether the `action` is set and equals to 'echo'. It then checks if a `message` parameter is provided and echoes it back. If not, it will respond with "No message provided".
+
+Here's how you can represent this in JSON:
 ```json
 {
     "endpoints": [
@@ -11,16 +14,33 @@ Here is the JSON output based on this analysis:
             "path": "/",
             "methods": ["GET"],
             "input_parameters": ["action", "message"],
-            "description": "Echo message or default 'No message provided'.",
-            "curl_request": "Open this URL in a web browser or use curl command: curl -X GET 'http://your-domain.com/?action=echo&message=Hello'"
-        },
-        {
-            "path": "/phpinfo",
-            "methods": ["GET"],
-            "description": "Display PHP information.",
-            "curl_request": "Open this URL in a web browser or use curl command: curl -X GET 'http://your-domain.com/phpinfo'"
+            "description": "Echoes back the message or responds with 'No message provided' if no message parameter is provided"
         }
     ]
 }
 ```
-This output is only based on your code, and there may be more paths, methods, input parameters, headers, etc. if the application continues to grow with more functionality. Make sure to update this JSON response as your application evolves.
+
+3. For path routing, it checks for two specific paths: "/" and "/phpinfo". The first one instantiates a `Main` object and calls its index method. The second one runs the phpinfo() function.
+
+Here's how you can represent this in JSON:
+```json
+{
+    "endpoints": [
+        {
+            "path": "/",
+            "methods": ["GET"],
+            "input_parameters": [],
+            "description": "Instantiates a Main object and calls its index method"
+        },
+        {
+            "path": "/phpinfo",
+            "methods": ["GET"],
+            "input_parameters": [],
+            "description": "Runs the phpinfo function"
+        }
+    ]
+}
+```
+Please note that I did not include any input headers since no specific headers are mentioned in this script. The actual headers could be extracted from the `$_SERVER['HTTP_*']` superglobals or from the PHP's `getallheaders()` function, but they are not included in the given script and hence left out for brevity.
+
+Again, it is important to note that this kind of analysis requires a context or full access to the codebase as real-world applications often have complex routing logic with various conditional statements and other parameters.

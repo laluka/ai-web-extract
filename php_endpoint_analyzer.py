@@ -32,7 +32,7 @@ class PHPCodeAnalyzer:
     def analyze_file(self, file_path: str) -> None:
         """Analyze a PHP file by sending its contents to Ollama."""
         content = self.read_file(file_path)
-        
+
         prompt = f"""Analyze this PHP code and extract every web PATH, and INPTU PARAMETERS, including:
         - HTTP methods (GET, POST, PUT, DELETE, etc.)
         - URLs/routes
@@ -72,7 +72,7 @@ class PHPCodeAnalyzer:
                 prompt=prompt,
                 stream=False
             )
-            
+
             # ensure file exists, create subdir if not exists
             output_path = os.path.join(self.output_dir, file_path)
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -97,10 +97,10 @@ class PHPCodeAnalyzer:
 
 def main():
     args = docopt(__doc__)
-    
+
     sources_dir = args['<SOURCES_DIR>'] or 'src'
     model = args['<MODEL>'] or 'codellama:34b'
-    
+
     if not os.path.exists(sources_dir):
         print(f"Error: Directory '{sources_dir}' does not exist")
         return
@@ -111,11 +111,11 @@ def main():
 
     print(f"Using model: {model}")
     print(f"Analyzing directory: {sources_dir}")
-    
+
     analyzer = PHPCodeAnalyzer(model=model)
     analyzer.analyze_directory(sources_dir)
     analyzer.export_results()
     print("Analysis complete. Results exported to analysis_results.json")
 
 if __name__ == "__main__":
-    main() 
+    main()

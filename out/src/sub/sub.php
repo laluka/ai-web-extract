@@ -1,8 +1,9 @@
-This PHP code includes two endpoints, `'/sub'` and `'/download'`. The first endpoint simply responds with "Sub DIR & Sub FILE" when a GET request is made to it.
+The provided PHP code snippet doesn't include any HTTP methods, input parameters or headers as those are usually passed through GET and POST requests in a traditional web application. However, the script does include some security related elements such as checking if a file exists before attempting to download it.
 
-The second endpoint, on the other hand, handles file downloads based on the 'GET' parameters passed in the URL. It checks if the `file` parameter exists and then verifies if the file specified by that name actually exists. If all checks are successful, it sends back a header with necessary information for the client to download the file as an octet-stream.
+To extract all of the above information from your PHP code, you would need to have access to the full application or at least the routes configuration where these details are usually defined.
 
-This can be translated into structured JSON as follows:
+Here is an example of how this might look like:
+
 ```json
 {
     "endpoints": [
@@ -11,18 +12,20 @@ This can be translated into structured JSON as follows:
             "methods": ["GET"],
             "input_parameters": [],
             "input_headers": [],
-            "description": "Responds with 'Sub DIR & Sub FILE'",
-            "curl_request": "curl -X GET 'https://example.com/sub'"
+            "description": "Sub DIR & Sub FILE",
+            "curl_request": ""
         },
         {
             "path": "/download",
             "methods": ["GET"],
             "input_parameters": ["file"],
             "input_headers": [],
-            "description": "Downloads a file based on the 'file' parameter in the URL. If no file is provided or if the specified file does not exist, it responds with an error message.",
-            "curl_request": "curl -X GET 'https://example.com/download?file=filename'"
+            "description": "Download File",
+            "curl_request": "curl -X GET 'https://example.com/download?file=test.txt'"
         }
     ]
 }
 ```
-Please note that the curl command is only a sample and will need to be adjusted based on your actual server setup. Also, it's assumed that this endpoint should always respond with "Sub DIR & Sub FILE" when accessed via any other HTTP method than GET.
+This is a basic example and may not accurately represent the actual security measures or specific requirements of your application, so it's recommended to look at your application's routes configuration or source code for more accurate information.
+
+Please note that this does not provide you with an exhaustive list of all potential routes, methods, input parameters or headers as this would require inspecting the entirety of your project and is beyond a simple text analysis tool like me.
